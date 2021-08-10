@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>Sketchpad</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" async defer></script>
   </head>
   <body>
     <div class="wrapper">
-      <h1>Sketchpad</h1>
-      <div class="buttonWrapper"></div>
       <div class="canvasWrapper">
+        <div class="topMenu">
+          <p><b>Sketchpad</b></p>
+        </div>
         <div class="canvas"></div>
         <div class="menuWrapper">
-          <input class="colorPicker" type="color" value="#000000" onchange="getColor()" />
+          <input
+            class="colorPicker"
+            type="color"
+            value="#000000"
+            onchange="getColor()"
+          />
           <div class="sliderWrapper">
             <p class="sliderCounter">10</p>
             <input
