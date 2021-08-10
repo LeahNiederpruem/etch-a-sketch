@@ -2,16 +2,16 @@ const body = document.body;
 const wrapper = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clearBtn");
 const sliderControl = document.querySelector(".sliderControl");
-const sliderCounter = document.querySelector(".sliderCounter");
+const sliderCounter = document.querySelectorAll(".sliderCounter");
 
-let pixelSize = sliderControl.value;
+let gridSize = sliderControl.value;
 
-function drawGrid(pixelSize) {
-  for (let i = 0; i < blockAmount(pixelSize); i++) {
+function drawGrid(gridSize) {
+  for (let i = 0; i < blockAmount(gridSize); i++) {
     let div = document.createElement("div");
 
-    div.style.height = pixelSize + "px";
-    div.style.width = pixelSize + "px";
+    wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`
+    wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`
 
     div.setAttribute("class", "canvasFill");
     div.addEventListener("mouseover", function () {
@@ -29,14 +29,19 @@ function clearGridItems() {
   });
 }
 
+function updateNumber(value) {
+    sliderCounter.forEach((counter) => {
+        counter.textContent = value
+    })
+}
+
 function updateCounter(value) {
-  sliderCounter.textContent = value;
   clearGridItems();
   drawGrid(value);
 }
 
-function blockAmount(pixelSize) {
-  return (500 / pixelSize) * (500 / pixelSize);
+function blockAmount(gridSize) {
+ return (gridSize * gridSize);
 }
 
 function clearCanvas() {
@@ -47,12 +52,12 @@ function clearCanvas() {
 }
 
 function getColor() {
-    const colorPicker = document.querySelector(".colorPicker");
-    return colorPicker.value;
+  const colorPicker = document.querySelector(".colorPicker");
+  return colorPicker.value;
 }
 
 clearBtn.addEventListener("click", function () {
   clearCanvas();
 });
 
-drawGrid(pixelSize);
+drawGrid(gridSize);

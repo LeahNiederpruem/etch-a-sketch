@@ -20,14 +20,19 @@
             onchange="getColor()"
           />
           <div class="sliderWrapper">
-            <p class="sliderCounter">10</p>
+              <div class="counterWrapper">
+                  <p class="sliderCounter">32</p>
+                  <p>x</p>
+                  <p class="sliderCounter">32</p>
+              </div>
             <input
               type="range"
-              min="5"
+              min="1"
               max="100"
-              value="10"
+              value="32"
               class="sliderControl"
-              oninput="updateCounter(this.value)"
+              oninput="updateNumber(this.value)"
+              onchange="updateCounter(this.value)"
             />
           </div>
           <button class="clearBtn">🗑 <b>Clear</b></button>

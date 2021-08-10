@@ -50,9 +50,13 @@ body {
   width: 500px;
   overflow: hidden;
   background-color: white;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.canvasFill{
+    display: block;
 }
 
 .menuWrapper {
@@ -74,6 +78,10 @@ body {
 }
 .colorPicker::-webkit-color-swatch {
     border: none;
+}
+
+.counterWrapper {
+    display: flex;
 }
 
 .sliderWrapper {
