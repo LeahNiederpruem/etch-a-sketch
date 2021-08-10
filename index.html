@@ -12,9 +12,17 @@
       <div class="canvasWrapper">
         <div class="canvas"></div>
         <div class="menuWrapper">
+          <input class="colorPicker" type="color" value="#000000" onchange="getColor()" />
           <div class="sliderWrapper">
-            <p>50</p>
-            <input type="range" min="1" max="101" value="50" step="10" class="slider" />
+            <p class="sliderCounter">10</p>
+            <input
+              type="range"
+              min="5"
+              max="100"
+              value="10"
+              class="sliderControl"
+              oninput="updateCounter(this.value)"
+            />
           </div>
           <button class="clearBtn">🗑 <b>Clear</b></button>
         </div>
