@@ -1,13 +1,29 @@
-const body = document.body;
 const wrapper = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clearBtn");
 const sliderControl = document.querySelector(".sliderControl");
 const sliderCounter = document.querySelectorAll(".sliderCounter");
+const colorPicker = document.querySelector(".colorPicker");
 
 let gridSize = sliderControl.value;
 
-function drawGrid(gridSize) {
-  for (let i = 0; i < blockAmount(gridSize); i++) {
+colorPicker.addEventListener("change", function () {
+  getPickedColor();
+});
+
+sliderControl.addEventListener("change", function () {
+  updateCanvas(sliderControl.value);
+});
+
+sliderControl.addEventListener("input", function () {
+  updateCounter(sliderControl.value);
+});
+
+clearBtn.addEventListener("click", function () {
+  clearCanvas();
+});
+
+function createCanvas(gridSize) {
+  for (let i = 0; i < gridAmount(gridSize); i++) {
     let div = document.createElement("div");
 
     wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -15,33 +31,16 @@ function drawGrid(gridSize) {
 
     div.setAttribute("class", "canvasFill");
     div.addEventListener("mouseover", function () {
-      event.target.style.backgroundColor = getColor();
+      event.target.style.backgroundColor = getPickedColor();
     });
 
     wrapper.appendChild(div);
   }
 }
 
-function clearGrid() {
-  const canvasFillItems = document.querySelectorAll(".canvasFill");
-  canvasFillItems.forEach((item) => {
-    item.remove();
-  });
-}
-
-function updateNumber(value) {
-  sliderCounter.forEach((counter) => {
-    counter.textContent = value;
-  });
-}
-
-function updateCounter(value) {
-  clearGrid();
-  drawGrid(value);
-}
-
-function blockAmount(gridSize) {
-  return gridSize * gridSize;
+function updateCanvas(value) {
+  clearCanvas();
+  createCanvas(value);
 }
 
 function clearCanvas() {
@@ -51,21 +50,19 @@ function clearCanvas() {
   });
 }
 
-function getColor() {
+function gridAmount(gridSize) {
+  return gridSize * gridSize;
+}
+
+function updateCounter(value) {
+  sliderCounter.forEach((counter) => {
+    counter.textContent = value;
+  });
+}
+
+function getPickedColor() {
   const colorPicker = document.querySelector(".colorPicker");
   return colorPicker.value;
 }
 
-clearBtn.addEventListener("click", function () {
-  clearCanvas();
-});
-
-sliderControl.addEventListener("change", function () {
-  updateCounter(sliderControl.value);
-});
-
-sliderControl.addEventListener('input', function() {
-    updateNumber(sliderControl.value)
-})
-
-drawGrid(gridSize);
+createCanvas(gridSize);

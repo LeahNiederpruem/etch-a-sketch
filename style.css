@@ -14,11 +14,55 @@ body {
   justify-content: center;
 }
 
-.windowWrapper {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+button {
+  height: 50px;
+  width: 50%;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all ease-in-out 0.1s;
+}
+
+button:hover {
+  background: hsl(0, 0%, 96%);
+  transition: all ease-in-out 0.2s;
+}
+
+.canvas {
+  height: 500px;
+  width: 500px;
+  overflow: hidden;
+  background-color: white;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.canvasFill {
+  display: block;
+}
+
+.colorPicker {
+  -webkit-appearance: none;
+  border: none;
+  border-right: solid 1px rgba(0, 0, 0, 0.1);
+  width: 50px;
+  height: 50px;
+  transition: all ease-in-out 0.1s;
+  cursor: pointer;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: none;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.colorPicker:hover {
+  opacity: 80%;
+  transition: all ease-in-out 0.1s;
 }
 
 .contentWrapper {
@@ -36,27 +80,9 @@ body {
   align-content: flex-start;
 }
 
-.topMenu {
-  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  height: 40px;
+.counterWrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.canvas {
-  height: 500px;
-  width: 500px;
-  overflow: hidden;
-  background-color: white;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-}
-
-.canvasFill {
-  display: block;
+  color: rgba(0, 0, 0, 0.2);
 }
 
 .menuWrapper {
@@ -64,33 +90,6 @@ body {
   display: flex;
   justify-content: space-between;
   border-top: solid 1px rgba(0, 0, 0, 0.1);
-}
-
-.colorPicker {
-  -webkit-appearance: none;
-  border: none;
-  border-right: solid 1px rgba(0, 0, 0, 0.1);
-  width: 50px;
-  height: 50px;
-  transition: all ease-in-out 0.1s;
-  cursor: pointer;
-}
-
-.colorPicker:hover {
-  opacity: 80%;
-  transition: all ease-in-out 0.1s;
-}
-
-.colorPicker::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-.colorPicker::-webkit-color-swatch {
-  border: none;
-}
-
-.counterWrapper {
-  display: flex;
-  color: rgba(0, 0, 0, 0.2);
 }
 
 .multiply {
@@ -107,16 +106,18 @@ body {
   border-right: solid 1px rgba(0, 0, 0, 0.1);
 }
 
-button {
-  height: 50px;
-  width: 50%;
-  border: none;
-  background: white;
-  cursor: pointer;
-  transition: all ease-in-out 0.1s;
+.topMenu {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-button:hover {
-  background: hsl(0, 0%, 96%);
-  transition: all ease-in-out 0.2s;
+.windowWrapper {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
