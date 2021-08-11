@@ -6,8 +6,10 @@ const colorPicker = document.querySelector(".colorPicker");
 
 let gridSize = sliderControl.value;
 
+createCanvas(gridSize);
+
 colorPicker.addEventListener("change", function () {
-  getPickedColor();
+  getColorPick();
 });
 
 sliderControl.addEventListener("change", function () {
@@ -31,8 +33,8 @@ function createCanvas(gridSize) {
     wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
     div.setAttribute("class", "canvasFill");
-    div.addEventListener("mouseover", function () {
-      event.target.style.backgroundColor = getPickedColor();
+    div.addEventListener("mousemove", function () {
+      event.target.style.backgroundColor = getColorPick();
     });
 
     wrapper.appendChild(div);
@@ -59,9 +61,7 @@ function updateCounter(value) {
   });
 }
 
-function getPickedColor() {
+function getColorPick() {
   const colorPicker = document.querySelector(".colorPicker");
   return colorPicker.value;
 }
-
-createCanvas(gridSize);
