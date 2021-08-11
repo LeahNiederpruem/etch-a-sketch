@@ -10,8 +10,8 @@ function drawGrid(gridSize) {
   for (let i = 0; i < blockAmount(gridSize); i++) {
     let div = document.createElement("div");
 
-    wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`
-    wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`
+    wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
     div.setAttribute("class", "canvasFill");
     div.addEventListener("mouseover", function () {
@@ -22,7 +22,7 @@ function drawGrid(gridSize) {
   }
 }
 
-function clearGridItems() {
+function clearGrid() {
   const canvasFillItems = document.querySelectorAll(".canvasFill");
   canvasFillItems.forEach((item) => {
     item.remove();
@@ -30,18 +30,18 @@ function clearGridItems() {
 }
 
 function updateNumber(value) {
-    sliderCounter.forEach((counter) => {
-        counter.textContent = value
-    })
+  sliderCounter.forEach((counter) => {
+    counter.textContent = value;
+  });
 }
 
 function updateCounter(value) {
-  clearGridItems();
+  clearGrid();
   drawGrid(value);
 }
 
 function blockAmount(gridSize) {
- return (gridSize * gridSize);
+  return gridSize * gridSize;
 }
 
 function clearCanvas() {
@@ -59,5 +59,13 @@ function getColor() {
 clearBtn.addEventListener("click", function () {
   clearCanvas();
 });
+
+sliderControl.addEventListener("change", function () {
+  updateCounter(sliderControl.value);
+});
+
+sliderControl.addEventListener('input', function() {
+    updateNumber(sliderControl.value)
+})
 
 drawGrid(gridSize);

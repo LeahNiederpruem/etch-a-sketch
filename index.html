@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Sketchpad</title>
+    <title>🗒 Sketchpad</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" async defer></script>
   </head>
@@ -20,19 +20,17 @@
             onchange="getColor()"
           />
           <div class="sliderWrapper">
-              <div class="counterWrapper">
-                  <p class="sliderCounter">32</p>
-                  <p>x</p>
-                  <p class="sliderCounter">32</p>
-              </div>
+            <div class="counterWrapper">
+              <small class="sliderCounter">32</small>
+              <small class="multiply">x</small>
+              <small class="sliderCounter">32</small>
+            </div>
             <input
               type="range"
               min="1"
               max="100"
               value="32"
               class="sliderControl"
-              oninput="updateNumber(this.value)"
-              onchange="updateCounter(this.value)"
             />
           </div>
           <button class="clearBtn">🗑 <b>Clear</b></button>

@@ -55,8 +55,8 @@ body {
   grid-template-rows: repeat(10, 1fr);
 }
 
-.canvasFill{
-    display: block;
+.canvasFill {
+  display: block;
 }
 
 .menuWrapper {
@@ -67,33 +67,45 @@ body {
 }
 
 .colorPicker {
-    -webkit-appearance: none;
-    border: none;
-    border-right: solid 1px rgba(0, 0, 0, 0.1);
-    width: 50px;
-    height: 50px;
+  -webkit-appearance: none;
+  border: none;
+  border-right: solid 1px rgba(0, 0, 0, 0.1);
+  width: 50px;
+  height: 50px;
+  transition: all ease-in-out 0.1s;
+  cursor: pointer;
 }
+
+.colorPicker:hover {
+  opacity: 80%;
+  transition: all ease-in-out 0.1s;
+}
+
 .colorPicker::-webkit-color-swatch-wrapper {
-    padding: 0;
+  padding: 0;
 }
 .colorPicker::-webkit-color-swatch {
-    border: none;
+  border: none;
 }
 
 .counterWrapper {
-    display: flex;
+  display: flex;
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.multiply {
+  padding: 0px 2px;
 }
 
 .sliderWrapper {
-    height: 50px;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-right: solid 1px rgba(0, 0, 0, 0.1);
+  height: 50px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: solid 1px rgba(0, 0, 0, 0.1);
 }
-
 
 button {
   height: 50px;
