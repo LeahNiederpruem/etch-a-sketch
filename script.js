@@ -11,7 +11,7 @@ colorPicker.addEventListener("change", function () {
 });
 
 sliderControl.addEventListener("change", function () {
-  updateCanvas(sliderControl.value);
+  createCanvas(sliderControl.value);
 });
 
 sliderControl.addEventListener("input", function () {
@@ -23,7 +23,8 @@ clearBtn.addEventListener("click", function () {
 });
 
 function createCanvas(gridSize) {
-  for (let i = 0; i < gridAmount(gridSize); i++) {
+  deleteCanvas();
+  for (let i = 0; i < (gridSize * gridSize); i++) {
     let div = document.createElement("div");
 
     wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
@@ -38,11 +39,6 @@ function createCanvas(gridSize) {
   }
 }
 
-function updateCanvas(value) {
-  clearCanvas();
-  createCanvas(value);
-}
-
 function clearCanvas() {
   const canvasFillItems = document.querySelectorAll(".canvasFill");
   canvasFillItems.forEach((item) => {
@@ -50,8 +46,11 @@ function clearCanvas() {
   });
 }
 
-function gridAmount(gridSize) {
-  return gridSize * gridSize;
+function deleteCanvas() {
+  const canvasFillItems = document.querySelectorAll('.canvasFill')
+  canvasFillItems.forEach((item) => {
+    item.remove()
+  })
 }
 
 function updateCounter(value) {
