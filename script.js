@@ -10,8 +10,6 @@ const rainbowBtn = document.getElementById("rainbow-btn");
 const trailBtn = document.getElementById("trail-btn");
 const eraseBtn = document.getElementById("erase-btn");
 
-// colorBtn.onclick = (e) => {console.log(e)}
-
 sliderControl.onchange = () => {
   createCanvas(sliderControl.value);
 };
@@ -40,13 +38,33 @@ const createCanvas = (gridSize) => {
     wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
     gridCell.setAttribute("class", "canvasFill");
-    
-    gridCell.onmouseover = (e) => {
-      e.target.style.backgroundColor = getColorPick();
-    };
 
     wrapper.appendChild(gridCell);
   }
+  triggerPen();
+};
+
+const triggerPen = () => {
+  let isMouseDown = false;
+
+  document.body.onmousedown = () => {
+    isMouseDown = true;
+    console.log(isMouseDown);
+  };
+
+  document.body.onmouseup = () => {
+    isMouseDown = false;
+    console.log(isMouseDown);
+  };
+
+  let gridCells = document.querySelectorAll(".canvasFill");
+  gridCells.forEach((gridCell) => {
+    gridCell.onmouseover = (e) => {
+      if (isMouseDown) {
+        e.target.style.backgroundColor = getColorPick();
+      }
+    };
+  });
 };
 
 const clearCanvas = () => {
