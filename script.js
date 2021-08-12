@@ -4,64 +4,61 @@ const sliderControl = document.querySelector(".sliderControl");
 const sliderCounter = document.querySelectorAll(".sliderCounter");
 const colorPicker = document.querySelector(".colorPicker");
 
-let gridSize = sliderControl.value;
-
-createCanvas(gridSize);
-
-colorPicker.addEventListener("change", function () {
+colorPicker.addEventListener("change", () => {
   getColorPick();
 });
 
-sliderControl.addEventListener("change", function () {
+sliderControl.addEventListener("change", () => {
   createCanvas(sliderControl.value);
 });
 
-sliderControl.addEventListener("input", function () {
+sliderControl.addEventListener("input", () => {
   updateCounter(sliderControl.value);
 });
 
-clearBtn.addEventListener("click", function () {
+clearBtn.addEventListener("click", () => {
   clearCanvas();
 });
 
-function createCanvas(gridSize) {
-  deleteCanvas();
-  for (let i = 0; i < (gridSize * gridSize); i++) {
-    let div = document.createElement("div");
+const createCanvas = (gridSize) => {
+  deleteCanvasContent();
+  for (let i = 0; i < gridSize * gridSize; i++) {
+    let gridCell = document.createElement("div");
 
     wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
     wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
-    div.setAttribute("class", "canvasFill");
-    div.addEventListener("mousemove", function () {
-      event.target.style.backgroundColor = getColorPick();
+    gridCell.setAttribute("class", "canvasFill");
+    gridCell.addEventListener("mouseover", (e) => {
+      e.target.style.backgroundColor = getColorPick();
     });
 
-    wrapper.appendChild(div);
+    wrapper.appendChild(gridCell);
   }
 }
 
-function clearCanvas() {
+const clearCanvas = () => {
   const canvasFillItems = document.querySelectorAll(".canvasFill");
   canvasFillItems.forEach((item) => {
     item.style.backgroundColor = "white";
   });
 }
 
-function deleteCanvas() {
-  const canvasFillItems = document.querySelectorAll('.canvasFill')
+const deleteCanvasContent = () => {
+  const canvasFillItems = document.querySelectorAll(".canvasFill");
   canvasFillItems.forEach((item) => {
-    item.remove()
-  })
+    item.remove();
+  });
 }
 
-function updateCounter(value) {
+const updateCounter = (value) => {
   sliderCounter.forEach((counter) => {
     counter.textContent = value;
   });
 }
 
-function getColorPick() {
-  const colorPicker = document.querySelector(".colorPicker");
-  return colorPicker.value;
+const getColorPick = () => {
+  return document.querySelector(".colorPicker").value;
 }
+
+createCanvas(sliderControl.value);
