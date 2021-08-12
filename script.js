@@ -2,22 +2,33 @@ const wrapper = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clearBtn");
 const sliderControl = document.querySelector(".sliderControl");
 const sliderCounter = document.querySelectorAll(".sliderCounter");
+const toolButtons = document.querySelectorAll(".toolBtn");
 const colorPicker = document.querySelector(".colorPicker");
 
-colorPicker.addEventListener("change", () => {
-  getColorPick();
-});
+const colorBtn = document.getElementById("color-btn");
+const rainbowBtn = document.getElementById("rainbow-btn");
+const trailBtn = document.getElementById("trail-btn");
+const eraseBtn = document.getElementById("erase-btn");
 
-sliderControl.addEventListener("change", () => {
+// colorBtn.onclick = (e) => {console.log(e)}
+
+sliderControl.onchange = () => {
   createCanvas(sliderControl.value);
-});
+};
 
-sliderControl.addEventListener("input", () => {
+sliderControl.oninput = () => {
   updateCounter(sliderControl.value);
-});
+};
 
-clearBtn.addEventListener("click", () => {
+clearBtn.onclick = () => {
   clearCanvas();
+};
+
+toolButtons.forEach((toolBtn) => {
+  let isToggled = false;
+  toolBtn.addEventListener("click", (e) => {
+    console.log(e.path[0].id);
+  });
 });
 
 const createCanvas = (gridSize) => {
@@ -29,36 +40,37 @@ const createCanvas = (gridSize) => {
     wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
     gridCell.setAttribute("class", "canvasFill");
-    gridCell.addEventListener("mouseover", (e) => {
+    
+    gridCell.onmouseover = (e) => {
       e.target.style.backgroundColor = getColorPick();
-    });
+    };
 
     wrapper.appendChild(gridCell);
   }
-}
+};
 
 const clearCanvas = () => {
   const canvasFillItems = document.querySelectorAll(".canvasFill");
   canvasFillItems.forEach((item) => {
     item.style.backgroundColor = "white";
   });
-}
+};
 
 const deleteCanvasContent = () => {
   const canvasFillItems = document.querySelectorAll(".canvasFill");
   canvasFillItems.forEach((item) => {
     item.remove();
   });
-}
+};
 
 const updateCounter = (value) => {
   sliderCounter.forEach((counter) => {
     counter.textContent = value;
   });
-}
+};
 
 const getColorPick = () => {
   return document.querySelector(".colorPicker").value;
-}
+};
 
 createCanvas(sliderControl.value);
