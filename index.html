@@ -6,30 +6,28 @@
     <script src="script.js" async defer></script>
   </head>
   <body>
-    <div class="windowWrapper">
-      <div class="contentWrapper">
-        <div class="topMenu">
-          <p>🗒 <b>Sketchpad</b></p>
-        </div>
-        <div class="canvas"></div>
-        <div class="menuWrapper">
-          <input class="colorPicker" type="color" value="#000000" />
-          <div class="sliderWrapper">
-            <div class="counterWrapper">
-              <small class="sliderCounter">32</small>
-              <small class="multiply">x</small>
-              <small class="sliderCounter">32</small>
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="100"
-              value="32"
-              class="sliderControl"
-            />
+    <div class="contentWrapper">
+      <div class="topMenu">
+        <p>🗒 <b>Sketchpad</b></p>
+      </div>
+      <div class="canvas"></div>
+      <div class="menuWrapper">
+        <input class="colorPicker" type="color" value="#000000" />
+        <div class="sliderWrapper">
+          <div class="counterWrapper">
+            <small class="sliderCounter">32</small>
+            <small class="multiply">x</small>
+            <small class="sliderCounter">32</small>
           </div>
-          <button class="clearBtn">🗑 <b>Clear</b></button>
+          <input
+            type="range"
+            min="1"
+            max="100"
+            value="32"
+            class="sliderControl"
+          />
         </div>
+        <button class="clearBtn">🗑 <b>Clear</b></button>
       </div>
     </div>
   </body>
