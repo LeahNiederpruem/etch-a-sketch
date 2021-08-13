@@ -12,14 +12,6 @@ const eraseBtn = document.getElementById("erase-btn");
 
 let mouseDown = false;
 
-document.body.onmousedown = () => {
-  isMouseDown = true;
-};
-
-document.body.onmouseup = () => {
-  isMouseDown = false;
-};
-
 sliderControl.onchange = () => {
   createCanvas(sliderControl.value);
 };
@@ -53,13 +45,30 @@ const createCanvas = (gridSize) => {
   toggleDraw();
 };
 
+const isMouseDown = () => {
+  document.body.onmousedown = () => {
+    mouseDown = true;
+    console.log(mouseDown);
+  };
+
+  document.body.onmouseup = () => {
+    mouseDown = false;
+    console.log(mouseDown);
+  };
+
+  if (mouseDown) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const toggleDraw = () => {
   let gridCells = document.querySelectorAll(".canvasFill");
 
-  gridCells.forEach((gridCell) => { 
+  gridCells.forEach((gridCell) => {
     gridCell.onmousemove = (e) => {
-      console.log(e)
-      if (isMouseDown) {
+      if (isMouseDown()) {
         e.target.style.backgroundColor = getColorPick();
       }
     };
