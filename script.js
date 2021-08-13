@@ -1,9 +1,9 @@
 const wrapper = document.querySelector(".canvas");
 const clearBtn = document.querySelector(".clearBtn");
+const colorPicker = document.querySelector(".colorPicker");
 const sliderControl = document.querySelector(".sliderControl");
 const sliderCounter = document.querySelectorAll(".sliderCounter");
 const toolButtons = document.querySelectorAll(".toolBtn");
-const colorPicker = document.querySelector(".colorPicker");
 
 const colorBtn = document.getElementById("color-btn");
 const rainbowBtn = document.getElementById("rainbow-btn");
@@ -25,10 +25,9 @@ clearBtn.onclick = () => {
 };
 
 toolButtons.forEach((toolBtn) => {
-  let isToggled = false;
-  toolBtn.addEventListener("click", (e) => {
-    console.log(e.path[0].id);
-  });
+  toolBtn.onclick = (e) => {
+    console.log(toolBtn);
+  };
 });
 
 const createCanvas = (gridSize) => {
@@ -42,26 +41,10 @@ const createCanvas = (gridSize) => {
     gridCell.setAttribute("class", "canvasFill");
     wrapper.appendChild(gridCell);
   }
-  toggleDraw();
+  triggerDraw();
 };
 
-const isMouseDown = () => {
-  document.body.onmousedown = () => {
-    mouseDown = true;
-    console.log(mouseDown);
-  };
-
-  document.body.onmouseup = () => {
-    mouseDown = false;
-    console.log(mouseDown);
-  };
-
-  if (mouseDown) {
-    return true;
-  }
-};
-
-const toggleDraw = () => {
+const triggerDraw = () => {
   let gridCells = document.querySelectorAll(".canvasFill");
 
   gridCells.forEach((gridCell) => {
@@ -74,6 +57,20 @@ const toggleDraw = () => {
       e.target.style.backgroundColor = getColorPick();
     };
   });
+};
+
+const isMouseDown = () => {
+  document.body.onmousedown = () => {
+    mouseDown = true;
+  };
+
+  document.body.onmouseup = () => {
+    mouseDown = false;
+  };
+
+  if (mouseDown) {
+    return true;
+  }
 };
 
 const clearCanvas = () => {
