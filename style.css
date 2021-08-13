@@ -136,6 +136,10 @@ button:hover {
   height: 40px;
 }
 
+.btnActive {
+  background-color: #e5e5e5;
+}
+
 .colorPicker:last-of-type {
   margin-top: auto;
 }
