@@ -58,8 +58,6 @@ const isMouseDown = () => {
 
   if (mouseDown) {
     return true;
-  } else {
-    return false;
   }
 };
 
