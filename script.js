@@ -34,20 +34,22 @@ toolButtons.forEach((toolBtn) => {
 const setActiveDrawMode = (drawMode) => {
   switch (drawMode) {
     case "color-btn":
-      setActiveStyle(drawMode);
+      setActiveBtnStyle(drawMode);
       triggerDraw(getColorPick());
       break;
     case "erase-btn":
-      setActiveStyle(drawMode);
+      setActiveBtnStyle(drawMode);
       triggerDraw("#FFFFFF");
       break;
     case "trail-btn":
-      setActiveStyle(drawMode);
+      setActiveBtnStyle(drawMode);
+      // toggleTrail(drawMode)
+      // triggerDraw(getColorPick())
       break;
   }
 };
 
-const setActiveStyle = (drawMode) => {
+const setActiveBtnStyle = (drawMode) => {
   toolButtons.forEach((toolButton) => {
     toolButton.style.backgroundColor = null;
   });
@@ -82,7 +84,7 @@ const triggerDraw = (drawMode) => {
     };
   });
 };
-
+ 
 const isMouseDown = () => {
   document.body.onmousedown = () => {
     mouseDown = true;
@@ -120,5 +122,6 @@ const updateCounter = (value) => {
 const getColorPick = () => {
   return document.querySelector(".colorPicker").value;
 };
+
 
 createCanvas(sliderControl.value);
