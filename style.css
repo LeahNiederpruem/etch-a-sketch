@@ -40,6 +40,15 @@ button:hover {
   transition: all .2s;
 }
 
+#hoverTrail {
+  transition: all .1s;
+}
+
+#hoverTrail:hover {
+  background: black!important;
+  transition: all;
+}
+
 .colorPicker {
   -webkit-appearance: none;
   border: none;
