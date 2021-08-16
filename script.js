@@ -32,20 +32,11 @@ toolButtons.forEach((toolBtn) => {
 });
 
 const setActiveDrawMode = (drawMode) => {
-  switch (drawMode) {
-    case "color-btn":
-      setActiveBtnStyle(drawMode);
-      triggerDraw(getColorPick());
-      break;
-    case "erase-btn":
-      setActiveBtnStyle(drawMode);
-      triggerDraw("#FFFFFF");
-      break;
-    case "trail-btn":
-      setActiveBtnStyle(drawMode);
-      // toggleTrail(drawMode)
-      // triggerDraw(getColorPick())
-      break;
+  activeDrawMode = drawMode;
+
+  if (drawMode) {
+    setActiveBtnStyle(drawMode);
+    triggerDraw(drawMode);
   }
 };
 
@@ -74,17 +65,48 @@ const triggerDraw = (drawMode) => {
   let gridCells = document.querySelectorAll(".canvasFill");
 
   gridCells.forEach((gridCell) => {
-    gridCell.onmousemove = (e) => {
+    gridCell.count = 0;
+
+    gridCell.onmouseover = (e) => {
       if (isMouseDown()) {
-        e.target.style.backgroundColor = drawMode;
+        switch (drawMode) {
+          case "color-btn":
+            e.target.style.backgroundColor = getColorPick();
+            e.target.style.opacity = "100%";
+            break;
+          case "shading-btn":
+            e.target.count += 1;
+            e.target.style.backgroundColor = getColorPick();
+            e.target.style.opacity = 0.2 * e.target.count;
+            console.log(e.target.style.opacity);
+            break;
+          case "rainbow-btn":
+            rainbowMode(e);
+            break;
+          case "erase-btn":
+            e.target.style.backgroundColor = "white";
+            break;
+        }
       }
     };
-    gridCell.onclick = (e) => {
-      e.target.style.backgroundColor = drawMode;
+    gridCell.onmousedown = (gridCell) => {
+      console.log(gridCell);
+      triggerDraw(drawMode);
     };
+    // gridCell.onmousedown = (e) => {
+    //   console.log(e);
+    //   e.target.style.backgroundColor = triggerDraw(drawMode);
+    // };
   });
 };
- 
+
+const rainbowMode = (e) => {
+  let generatedRed = Math.floor(Math.random() * 255);
+  let generatedGreen = Math.floor(Math.random() * 255);
+  let generatedBlue = Math.floor(Math.random() * 255);
+  e.target.style.backgroundColor = `rgb(${generatedRed}, ${generatedGreen}, ${generatedBlue})`;
+};
+
 const isMouseDown = () => {
   document.body.onmousedown = () => {
     mouseDown = true;
@@ -100,16 +122,17 @@ const isMouseDown = () => {
 };
 
 const clearCanvas = () => {
-  const canvasFillItems = document.querySelectorAll(".canvasFill");
-  canvasFillItems.forEach((item) => {
-    item.style.backgroundColor = "white";
+  const gridCells = document.querySelectorAll(".canvasFill");
+  gridCells.forEach((gridCell) => {
+    gridCell.style.backgroundColor = "white";
+    gridCell.count = 0;
   });
 };
 
 const deleteCanvasContent = () => {
-  const canvasFillItems = document.querySelectorAll(".canvasFill");
-  canvasFillItems.forEach((item) => {
-    item.remove();
+  const gridCells = document.querySelectorAll(".canvasFill");
+  gridCells.forEach((gridCell) => {
+    gridCell.remove();
   });
 };
 
@@ -122,6 +145,5 @@ const updateCounter = (value) => {
 const getColorPick = () => {
   return document.querySelector(".colorPicker").value;
 };
-
 
 createCanvas(sliderControl.value);
