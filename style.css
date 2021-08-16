@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   /* transition: all ease-in-out 0.1s; */
-  /* border: solid 1px #f5f5f5; */
+  /* border: solid 1px red; */
 }
 
 body {
@@ -23,7 +23,7 @@ button {
 }
 
 button:hover {
-  background: #f5f5f5;
+  background: hsl(0, 0%, 97%);
   transition: all ease-in-out 0.2s;
 }
 
@@ -38,11 +38,6 @@ button:hover {
 .canvasFill {
   display: block;
   transition: all .2s;
-}
-
-.canvasFill:hover{
-  background-color: black;
-  transition: all;
 }
 
 .colorPicker {
@@ -61,7 +56,7 @@ button:hover {
 }
 
 .colorPicker::-webkit-color-swatch-wrapper {
-  padding: 8px;
+  padding: 5px;
   background-color: white;
 }
 
@@ -139,10 +134,6 @@ button:hover {
 .toolBar > button {
   width: 100%;
   height: 40px;
-}
-
-#btnActive {
-  background-color: #e5e5e5;
 }
 
 .colorPicker:last-of-type {
