@@ -5,15 +5,16 @@ const sliderControl = document.querySelector(".sliderControl");
 const sliderCounter = document.querySelectorAll(".sliderCounter");
 const toolButtons = document.querySelectorAll(".toolBtn");
 
-const colorBtn = document.getElementById("color-btn");
-const rainbowBtn = document.getElementById("rainbow-btn");
-const trailBtn = document.getElementById("trail-btn");
-const eraseBtn = document.getElementById("erase-btn");
-
 let mouseDown = false;
+let activeDrawMode = "color-btn";
+
+colorPicker.onchange = () => {
+  setActiveDrawMode(activeDrawMode);
+};
 
 sliderControl.onchange = () => {
   createCanvas(sliderControl.value);
+  setActiveDrawMode(activeDrawMode);
 };
 
 sliderControl.oninput = () => {
@@ -25,10 +26,34 @@ clearBtn.onclick = () => {
 };
 
 toolButtons.forEach((toolBtn) => {
-  toolBtn.onclick = (e) => {
-    console.log(toolBtn);
+  toolBtn.onclick = () => {
+    setActiveDrawMode(toolBtn.getAttribute("id"));
   };
 });
+
+const setActiveDrawMode = (drawMode) => {
+  switch (drawMode) {
+    case "color-btn":
+      setActiveStyle(drawMode);
+      triggerDraw(getColorPick());
+      break;
+    case "erase-btn":
+      setActiveStyle(drawMode);
+      triggerDraw("#FFFFFF");
+      break;
+    case "trail-btn":
+      setActiveStyle(drawMode);
+      break;
+  }
+};
+
+const setActiveStyle = (drawMode) => {
+  toolButtons.forEach((toolButton) => {
+    toolButton.style.backgroundColor = null;
+  });
+  const styleButton = document.querySelector(`#${drawMode}`);
+  styleButton.style.backgroundColor = "#ededed";
+};
 
 const createCanvas = (gridSize) => {
   deleteCanvasContent();
@@ -41,20 +66,19 @@ const createCanvas = (gridSize) => {
     gridCell.setAttribute("class", "canvasFill");
     wrapper.appendChild(gridCell);
   }
-  triggerDraw();
 };
 
-const triggerDraw = () => {
+const triggerDraw = (drawMode) => {
   let gridCells = document.querySelectorAll(".canvasFill");
 
   gridCells.forEach((gridCell) => {
     gridCell.onmousemove = (e) => {
       if (isMouseDown()) {
-        e.target.style.backgroundColor = getColorPick();
+        e.target.style.backgroundColor = drawMode;
       }
     };
     gridCell.onclick = (e) => {
-      e.target.style.backgroundColor = getColorPick();
+      e.target.style.backgroundColor = drawMode;
     };
   });
 };
