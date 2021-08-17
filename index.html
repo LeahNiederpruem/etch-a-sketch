@@ -12,10 +12,10 @@
       </div>
       <div class="canvasWrapper">
         <div class="toolBar">
-          <button class="toolBtn" id="color-btn">✒️</button>
-          <button class="toolBtn" id="shading-btn">✏️</button>
-          <button class="toolBtn" id="rainbow-btn">🌈</button>
-          <button class="toolBtn" id="erase-btn">❌</button>
+          <button class="toolButton" id="pen-btn" data-draw-mode='pen'>✒️</button>
+          <button class="toolButton" id="pencil-btn" data-draw-mode='pencil'>✏️</button>
+          <button class="toolButton" id="rainbow-btn" data-draw-mode='rainbow'>🌈</button>
+          <button class="toolButton" id="erase-btn" data-draw-mode='erase'>❌</button>
           <input class="colorPicker" type="color" value="#000000" />
         </div>
         <div class="canvas"></div>
@@ -35,7 +35,7 @@
             class="sliderControl"
           />
         </div>
-        <button class="clearBtn">🗑 <b>Clear</b></button>
+        <button class="clearButton">🗑 <b>Clear</b></button>
       </div>
     </div>
   </body>
