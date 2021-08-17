@@ -1,7 +1,6 @@
 * {
   padding: 0;
   margin: 0;
-  /* transition: all ease-in-out 0.1s; */
   /* border: solid 1px red; */
 }
 
@@ -15,16 +14,31 @@ body {
   align-items: center;
 }
 
-button {
-  border: none;
-  background: white;
-  cursor: pointer;
-  transition: all ease-in-out 0.1s;
+.contentWrapper {
+  height: auto;
+  background-color: white;
+  overflow: hidden;
+  border: solid 1px #e5e5e5;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+    0 15px 40px rgba(166, 173, 201, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-content: flex-start;
 }
 
-button:hover {
-  background: hsl(0, 0%, 97%);
-  transition: all ease-in-out 0.2s;
+.topBar {
+  border-bottom: solid 1px #e5e5e5;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.canvasWrapper {
+  display: flex;
 }
 
 .canvas {
@@ -37,16 +51,35 @@ button:hover {
 
 .canvasFill {
   display: block;
-  /* transition: all .2s; */
 }
 
-#hoverTrail {
-  transition: all .1s;
+button {
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all ease-in-out 0.1s;
 }
 
-#hoverTrail:hover {
-  background: black!important;
-  transition: all;
+.toolBar {
+  border-right: solid 1px #e5e5e5;
+  min-width: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.toolBar > button {
+  width: 100%;
+  height: 40px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all ease-in-out 0.1s;
+}
+
+.toolBar > button:hover {
+  background: hsl(0, 0%, 97%);
+  transition: all ease-in-out 0.2s;
 }
 
 .colorPicker {
@@ -69,28 +102,13 @@ button:hover {
   background-color: white;
 }
 
+.colorPicker:last-of-type {
+  margin-top: auto;
+}
+
 .colorPicker:hover {
   opacity: 80%;
   transition: all ease-in-out 0.1s;
-}
-
-.contentWrapper {
-  height: auto;
-  background-color: white;
-  overflow: hidden;
-  border: solid 1px #e5e5e5;
-  border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
-    0 15px 40px rgba(166, 173, 201, 0.2);
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: flex-start;
-}
-
-.counterWrapper {
-  display: flex;
-  color: rgba(0, 0, 0, 0.2);
 }
 
 .menuWrapper {
@@ -105,10 +123,6 @@ button:hover {
   width: 50%;
 }
 
-.multiply {
-  padding: 0px 2px;
-}
-
 .sliderWrapper {
   height: 50px;
   width: 50%;
@@ -119,32 +133,23 @@ button:hover {
   border-right: solid 1px #e5e5e5;
 }
 
-.topMenu {
-  border-bottom: solid 1px #e5e5e5;
-  width: 100%;
-  height: 40px;
+.counterWrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  color: rgba(0, 0, 0, 0.2);
 }
 
-.canvasWrapper {
-  display: flex;
+.multiply {
+  padding: 0px 2px;
 }
 
-.toolBar {
-  border-right: solid 1px #e5e5e5;
-  min-width: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.clearBtn {
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all ease-in-out 0.1s;
 }
 
-.toolBar > button {
-  width: 100%;
-  height: 40px;
-}
-
-.colorPicker:last-of-type {
-  margin-top: auto;
+.clearBtn:hover {
+  background: hsl(0, 0%, 97%);
+  transition: all ease-in-out 0.2s;
 }

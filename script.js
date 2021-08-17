@@ -92,13 +92,6 @@ const triggerDraw = (drawMode) => {
   });
 };
 
-const rainbowMode = (gridCell) => {
-  let generatedRed = Math.floor(Math.random() * 255);
-  let generatedGreen = Math.floor(Math.random() * 255);
-  let generatedBlue = Math.floor(Math.random() * 255);
-  gridCell.target.style.backgroundColor = `rgb(${generatedRed}, ${generatedGreen}, ${generatedBlue})`;
-};
-
 const isMouseDown = () => {
   document.body.onmousedown = () => {
     mouseDown = true;
@@ -111,6 +104,13 @@ const isMouseDown = () => {
   if (mouseDown) {
     return true;
   }
+};
+
+const rainbowMode = (gridCell) => {
+  let colorRed = Math.floor(Math.random() * 255);
+  let colorGreen = Math.floor(Math.random() * 255);
+  let colorBlue = Math.floor(Math.random() * 255);
+  gridCell.target.style.backgroundColor = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
 };
 
 const clearCanvas = () => {
