@@ -8,6 +8,26 @@ const toolButtons = document.querySelectorAll(".toolBtn");
 let mouseDown = false;
 let activeDrawMode = "color-btn";
 
+document.body.onkeypress = (e) => {
+  switch (e.key) {
+    case "p":
+      setActiveDrawMode("color-btn");
+      break;
+    case "s":
+      setActiveDrawMode("shading-btn");
+      break;
+    case "r":
+      setActiveDrawMode("rainbow-btn");
+      break;
+    case "e":
+      setActiveDrawMode("erase-btn");
+      break;
+    case "x":
+      clearCanvas();
+      break;
+  }
+};
+
 colorPicker.onchange = () => {
   setActiveDrawMode(activeDrawMode);
 };
