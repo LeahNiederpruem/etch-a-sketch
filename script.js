@@ -1,28 +1,28 @@
-const wrapper = document.querySelector(".canvas");
-const clearBtn = document.querySelector(".clearBtn");
+const canvas = document.querySelector(".canvas");
+const clearButton = document.querySelector(".clearButton");
 const colorPicker = document.querySelector(".colorPicker");
 const sliderControl = document.querySelector(".sliderControl");
 const sliderCounter = document.querySelectorAll(".sliderCounter");
-const toolButtons = document.querySelectorAll(".toolBtn");
+const toolButtons = document.querySelectorAll(".toolButton");
 
 let mouseDown = false;
-let activeDrawMode = "color-btn";
+let activeDrawMode = "pen";
 
 document.body.onkeypress = (e) => {
-  switch (e.key) {
-    case "p":
-      setActiveDrawMode("color-btn");
+  switch (e.code) {
+    case "KeyP":
+      setActiveDrawMode("pen");
       break;
-    case "s":
-      setActiveDrawMode("shading-btn");
+    case "KeyS":
+      setActiveDrawMode("pencil");
       break;
-    case "r":
-      setActiveDrawMode("rainbow-btn");
+    case "KeyR":
+      setActiveDrawMode("rainbow");
       break;
-    case "e":
-      setActiveDrawMode("erase-btn");
+    case "KeyE":
+      setActiveDrawMode("erase");
       break;
-    case "x":
+    case "KeyX":
       clearCanvas();
       break;
   }
@@ -41,13 +41,13 @@ sliderControl.oninput = () => {
   updateCounter(sliderControl.value);
 };
 
-clearBtn.onclick = () => {
+clearButton.onclick = () => {
   clearCanvas();
 };
 
 toolButtons.forEach((toolBtn) => {
   toolBtn.onclick = () => {
-    setActiveDrawMode(toolBtn.getAttribute("id"));
+    setActiveDrawMode(toolBtn.dataset.drawMode);
   };
 });
 
@@ -63,47 +63,47 @@ const setActiveDrawMode = (drawMode) => {
 const setActiveBtnStyle = (drawMode) => {
   toolButtons.forEach((toolButton) => {
     toolButton.style.backgroundColor = null;
+    toolButton.classList.remove("active");
   });
-  const styleButton = document.querySelector(`#${drawMode}`);
-  styleButton.style.backgroundColor = "#ededed";
+  const styleButton = document.querySelector(`#${drawMode}-btn`);
+  styleButton.classList.add("active");
 };
 
 const createCanvas = (gridSize) => {
   deleteCanvasCells();
   for (let i = 0; i < gridSize * gridSize; i++) {
-    let gridCell = document.createElement("div");
+    const gridCell = document.createElement("div");
 
-    wrapper.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-    wrapper.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+    canvas.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    canvas.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 
-    gridCell.setAttribute("class", "canvasFill");
-    wrapper.appendChild(gridCell);
+    gridCell.setAttribute("class", "canvasPixel");
+    canvas.appendChild(gridCell);
   }
 };
 
 const triggerDraw = (drawMode) => {
-  let gridCells = document.querySelectorAll(".canvasFill");
+  const gridCells = document.querySelectorAll(".canvasPixel");
 
   gridCells.forEach((gridCell) => {
-    gridCell.count = 0;
+    gridCell.shadingCount = 0;
 
     gridCell.onmouseover = (gridCell) => {
       if (isMouseDown()) {
         switch (drawMode) {
-          case "color-btn":
+          case "pen":
             gridCell.target.style.backgroundColor = getColorPick();
             gridCell.target.style.opacity = "100%";
             break;
-          case "shading-btn":
-            gridCell.target.count += 1;
+          case "pencil":
+            gridCell.target.shadingCount += 1;
             gridCell.target.style.backgroundColor = getColorPick();
-            gridCell.target.style.opacity = 0.2 * gridCell.target.count;
-            console.log(gridCell.target.style.opacity);
+            gridCell.target.style.opacity = 0.2 * gridCell.target.shadingCount;
             break;
-          case "rainbow-btn":
+          case "rainbow":
             rainbowMode(gridCell);
             break;
-          case "erase-btn":
+          case "erase":
             gridCell.target.style.backgroundColor = "white";
             break;
         }
@@ -127,14 +127,15 @@ const isMouseDown = () => {
 };
 
 const rainbowMode = (gridCell) => {
-  let colorRed = Math.floor(Math.random() * 255);
-  let colorGreen = Math.floor(Math.random() * 255);
-  let colorBlue = Math.floor(Math.random() * 255);
-  gridCell.target.style.backgroundColor = `rgb(${colorRed}, ${colorGreen}, ${colorBlue})`;
+  gridCell.target.style.backgroundColor = `rgb(${rndColor()}, ${rndColor()}, ${rndColor()})`;
+};
+
+const rndColor = () => {
+  return Math.floor(Math.random() * 255);
 };
 
 const clearCanvas = () => {
-  const gridCells = document.querySelectorAll(".canvasFill");
+  const gridCells = document.querySelectorAll(".canvasPixel");
   gridCells.forEach((gridCell) => {
     gridCell.style.backgroundColor = "white";
     gridCell.count = 0;
@@ -142,7 +143,7 @@ const clearCanvas = () => {
 };
 
 const deleteCanvasCells = () => {
-  const gridCells = document.querySelectorAll(".canvasFill");
+  const gridCells = document.querySelectorAll(".canvasPixel");
   gridCells.forEach((gridCell) => {
     gridCell.remove();
   });
