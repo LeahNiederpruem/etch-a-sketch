@@ -49,7 +49,7 @@ const setActiveBtnStyle = (drawMode) => {
 };
 
 const createCanvas = (gridSize) => {
-  deleteCanvasContent();
+  deleteCanvasCells();
   for (let i = 0; i < gridSize * gridSize; i++) {
     let gridCell = document.createElement("div");
 
@@ -67,44 +67,36 @@ const triggerDraw = (drawMode) => {
   gridCells.forEach((gridCell) => {
     gridCell.count = 0;
 
-    gridCell.onmouseover = (e) => {
+    gridCell.onmouseover = (gridCell) => {
       if (isMouseDown()) {
         switch (drawMode) {
           case "color-btn":
-            e.target.style.backgroundColor = getColorPick();
-            e.target.style.opacity = "100%";
+            gridCell.target.style.backgroundColor = getColorPick();
+            gridCell.target.style.opacity = "100%";
             break;
           case "shading-btn":
-            e.target.count += 1;
-            e.target.style.backgroundColor = getColorPick();
-            e.target.style.opacity = 0.2 * e.target.count;
-            console.log(e.target.style.opacity);
+            gridCell.target.count += 1;
+            gridCell.target.style.backgroundColor = getColorPick();
+            gridCell.target.style.opacity = 0.2 * gridCell.target.count;
+            console.log(gridCell.target.style.opacity);
             break;
           case "rainbow-btn":
-            rainbowMode(e);
+            rainbowMode(gridCell);
             break;
           case "erase-btn":
-            e.target.style.backgroundColor = "white";
+            gridCell.target.style.backgroundColor = "white";
             break;
         }
       }
     };
-    gridCell.onmousedown = (gridCell) => {
-      console.log(gridCell);
-      triggerDraw(drawMode);
-    };
-    // gridCell.onmousedown = (e) => {
-    //   console.log(e);
-    //   e.target.style.backgroundColor = triggerDraw(drawMode);
-    // };
   });
 };
 
-const rainbowMode = (e) => {
+const rainbowMode = (gridCell) => {
   let generatedRed = Math.floor(Math.random() * 255);
   let generatedGreen = Math.floor(Math.random() * 255);
   let generatedBlue = Math.floor(Math.random() * 255);
-  e.target.style.backgroundColor = `rgb(${generatedRed}, ${generatedGreen}, ${generatedBlue})`;
+  gridCell.target.style.backgroundColor = `rgb(${generatedRed}, ${generatedGreen}, ${generatedBlue})`;
 };
 
 const isMouseDown = () => {
@@ -129,7 +121,7 @@ const clearCanvas = () => {
   });
 };
 
-const deleteCanvasContent = () => {
+const deleteCanvasCells = () => {
   const gridCells = document.querySelectorAll(".canvasFill");
   gridCells.forEach((gridCell) => {
     gridCell.remove();
