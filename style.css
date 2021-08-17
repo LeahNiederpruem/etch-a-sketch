@@ -49,7 +49,7 @@ body {
   display: grid;
 }
 
-.canvasFill {
+.canvasPixel {
   display: block;
 }
 
@@ -80,6 +80,10 @@ button {
 .toolBar > button:hover {
   background: hsl(0, 0%, 97%);
   transition: all ease-in-out 0.2s;
+}
+
+.active {
+  background: #e5e5e5!important;
 }
 
 .colorPicker {
@@ -142,14 +146,14 @@ button {
   padding: 0px 2px;
 }
 
-.clearBtn {
+.clearButton {
   border: none;
   background: white;
   cursor: pointer;
   transition: all ease-in-out 0.1s;
 }
 
-.clearBtn:hover {
+.clearButton:hover {
   background: hsl(0, 0%, 97%);
   transition: all ease-in-out 0.2s;
 }
