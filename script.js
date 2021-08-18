@@ -8,32 +8,32 @@ const toolButtons = document.querySelectorAll(".toolButton");
 let mouseDown = false;
 let activeDrawMode = "pen";
 
+document.body.onkeypress = (e) => {
+  switch (e.key.toLowerCase()) {
+    case "p":
+      setActiveDrawMode("pen");
+      break;
+    case "s":
+      setActiveDrawMode("pencil");
+      break;
+    case "r":
+      setActiveDrawMode("rainbow");
+      break;
+    case "e":
+      setActiveDrawMode("erase");
+      break;
+    case "x":
+      clearCanvas();
+      break;
+  }
+};
+
 document.body.onmousedown = () => {
   mouseDown = true;
 };
 
 document.body.onmouseup = () => {
   mouseDown = false;
-};
-
-document.body.onkeypress = (e) => {
-  switch (e.code) {
-    case "KeyP":
-      setActiveDrawMode("pen");
-      break;
-    case "KeyS":
-      setActiveDrawMode("pencil");
-      break;
-    case "KeyR":
-      setActiveDrawMode("rainbow");
-      break;
-    case "KeyE":
-      setActiveDrawMode("erase");
-      break;
-    case "KeyX":
-      clearCanvas();
-      break;
-  }
 };
 
 colorPicker.onchange = () => {
@@ -60,18 +60,17 @@ toolButtons.forEach((toolBtn) => {
 });
 
 const setActiveDrawMode = (drawMode) => {
-  activeDrawMode = drawMode;
-  
   setActiveBtnStyle(drawMode);
   triggerDraw(drawMode);
 };
 
 const setActiveBtnStyle = (drawMode) => {
-  toolButtons.forEach((toolButton) => {
-    toolButton.classList.remove("active");
-  });
-  const styleButton = document.querySelector(`#${drawMode}-btn`);
-  styleButton.classList.add("active");
+  if (drawMode != activeDrawMode) {
+    document.querySelector(`#${activeDrawMode}-btn`).classList.remove("active");
+  }
+
+  activeDrawMode = drawMode;
+  document.querySelector(`#${drawMode}-btn`).classList.add("active");
 };
 
 const createCanvas = (gridSize) => {
@@ -119,6 +118,7 @@ const triggerDraw = (drawMode) => {
 
 const rainbowMode = (gridCell) => {
   gridCell.target.style.backgroundColor = `rgb(${rndColor()}, ${rndColor()}, ${rndColor()})`;
+  gridCell.target.style.opacity = "100%";
 };
 
 const rndColor = () => {
