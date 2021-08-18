@@ -17,7 +17,7 @@ document.body.onkeypress = (e) => {
       setActiveDrawMode("pencil");
       break;
     case "r":
-      setActiveDrawMode("rainbow");
+      setActiveDrawMode("random");
       break;
     case "e":
       setActiveDrawMode("erase");
@@ -61,7 +61,7 @@ toolButtons.forEach((toolBtn) => {
 
 const setActiveDrawMode = (drawMode) => {
   setActiveBtnStyle(drawMode);
-  triggerDraw(drawMode);
+  passDrawMode(drawMode);
 };
 
 const setActiveBtnStyle = (drawMode) => {
@@ -86,7 +86,7 @@ const createCanvas = (gridSize) => {
   }
 };
 
-const triggerDraw = (drawMode) => {
+const passDrawMode = (drawMode) => {
   const gridCells = document.querySelectorAll(".canvasPixel");
 
   gridCells.forEach((gridCell) => {
@@ -94,31 +94,50 @@ const triggerDraw = (drawMode) => {
 
     gridCell.onmouseover = (event) => {
       if (mouseDown) {
-        switch (drawMode) {
-          case "pen":
-            event.target.style.backgroundColor = getColorPick();
-            event.target.style.opacity = "100%";
-            break;
-          case "pencil":
-            event.target.shadingCount += 1;
-            event.target.style.backgroundColor = getColorPick();
-            event.target.style.opacity = 0.2 * event.target.shadingCount;
-            break;
-          case "rainbow":
-            rainbowMode(event);
-            break;
-          case "erase":
-            event.target.style.backgroundColor = "white";
-            break;
-        }
+        drawWithMode(event, drawMode);
       }
+    };
+    gridCell.onmousedown = (event) => {
+      drawWithMode(event, drawMode);
     };
   });
 };
 
-const rainbowMode = (gridCell) => {
-  gridCell.target.style.backgroundColor = `rgb(${rndColor()}, ${rndColor()}, ${rndColor()})`;
-  gridCell.target.style.opacity = "100%";
+const drawWithMode = (event, drawMode) => {
+  switch (drawMode) {
+    case "pen":
+      penMode(event);
+      break;
+    case "pencil":
+      pencilMode(event);
+      break;
+    case "random":
+      randomColorMode(event);
+      break;
+    case "erase":
+      eraseMode(event);
+      break;
+  }
+};
+
+const penMode = (event) => {
+  event.target.style.backgroundColor = getColorPick();
+  event.target.style.opacity = "100%";
+};
+
+const pencilMode = (event) => {
+  event.target.shadingCount += 1;
+  event.target.style.backgroundColor = getColorPick();
+  event.target.style.opacity = 0.2 * event.target.shadingCount;
+};
+
+const randomColorMode = (event) => {
+  event.target.style.backgroundColor = `rgb(${rndColor()}, ${rndColor()}, ${rndColor()})`;
+  event.target.style.opacity = "100%";
+};
+
+const eraseMode = (event) => {
+  event.target.style.backgroundColor = "white";
 };
 
 const rndColor = () => {
@@ -129,7 +148,7 @@ const clearCanvas = () => {
   const gridCells = document.querySelectorAll(".canvasPixel");
   gridCells.forEach((gridCell) => {
     gridCell.style.backgroundColor = "white";
-    gridCell.count = 0;
+    gridCell.shadingCount = 0;
   });
 };
 
