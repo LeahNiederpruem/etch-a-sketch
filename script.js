@@ -53,16 +53,13 @@ toolButtons.forEach((toolBtn) => {
 
 const setActiveDrawMode = (drawMode) => {
   activeDrawMode = drawMode;
-
-  if (drawMode) {
-    setActiveBtnStyle(drawMode);
-    triggerDraw(drawMode);
-  }
+  
+  setActiveBtnStyle(drawMode);
+  triggerDraw(drawMode);
 };
 
 const setActiveBtnStyle = (drawMode) => {
   toolButtons.forEach((toolButton) => {
-    toolButton.style.backgroundColor = null;
     toolButton.classList.remove("active");
   });
   const styleButton = document.querySelector(`#${drawMode}-btn`);
@@ -88,23 +85,23 @@ const triggerDraw = (drawMode) => {
   gridCells.forEach((gridCell) => {
     gridCell.shadingCount = 0;
 
-    gridCell.onmouseover = (gridCell) => {
+    gridCell.onmouseover = (event) => {
       if (isMouseDown()) {
         switch (drawMode) {
           case "pen":
-            gridCell.target.style.backgroundColor = getColorPick();
-            gridCell.target.style.opacity = "100%";
+            event.target.style.backgroundColor = getColorPick();
+            event.target.style.opacity = "100%";
             break;
           case "pencil":
-            gridCell.target.shadingCount += 1;
-            gridCell.target.style.backgroundColor = getColorPick();
-            gridCell.target.style.opacity = 0.2 * gridCell.target.shadingCount;
+            event.target.shadingCount += 1;
+            event.target.style.backgroundColor = getColorPick();
+            event.target.style.opacity = 0.2 * event.target.shadingCount;
             break;
           case "rainbow":
-            rainbowMode(gridCell);
+            rainbowMode(event);
             break;
           case "erase":
-            gridCell.target.style.backgroundColor = "white";
+            event.target.style.backgroundColor = "white";
             break;
         }
       }
@@ -160,3 +157,4 @@ const getColorPick = () => {
 };
 
 createCanvas(sliderControl.value);
+setActiveDrawMode(activeDrawMode);
