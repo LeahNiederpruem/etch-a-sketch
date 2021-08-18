@@ -8,6 +8,14 @@ const toolButtons = document.querySelectorAll(".toolButton");
 let mouseDown = false;
 let activeDrawMode = "pen";
 
+document.body.onmousedown = () => {
+  mouseDown = true;
+};
+
+document.body.onmouseup = () => {
+  mouseDown = false;
+};
+
 document.body.onkeypress = (e) => {
   switch (e.code) {
     case "KeyP":
@@ -86,7 +94,7 @@ const triggerDraw = (drawMode) => {
     gridCell.shadingCount = 0;
 
     gridCell.onmouseover = (event) => {
-      if (isMouseDown()) {
+      if (mouseDown) {
         switch (drawMode) {
           case "pen":
             event.target.style.backgroundColor = getColorPick();
@@ -107,20 +115,6 @@ const triggerDraw = (drawMode) => {
       }
     };
   });
-};
-
-const isMouseDown = () => {
-  document.body.onmousedown = () => {
-    mouseDown = true;
-  };
-
-  document.body.onmouseup = () => {
-    mouseDown = false;
-  };
-
-  if (mouseDown) {
-    return true;
-  }
 };
 
 const rainbowMode = (gridCell) => {
